@@ -3,10 +3,11 @@
   overflow: hidden;
   position: relative;
   line-height: 1.2em;
-  max-height: 8.5em;
+  max-height: 6.2em;
   text-align: justify;
   margin-right: -1em;
   padding-right: 1em;
+  margin-bottom: 0.5rem;
 }
 
 .card-text:before {
@@ -31,8 +32,6 @@
 }
 
 .title-action {
-  width: 30%;
-  float: right;
   display: flex;
 }
 
