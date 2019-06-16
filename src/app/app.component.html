@@ -1,21 +1,52 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<h1 style="text-align: center;" class="m-30">Welcom to post board</h1>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="card-deck">
+    <div class="card">
+      <img src="assets/images/plus.svg" class="icon-100" alt="image" (click)="addItem()">
+    </div>
+    <ng-container *ngFor="let item of arrayOfItems; let i = index;">
+      <div class="card">
+        <app-item
+          [item]="item"
+          (view)="viewItem(i)"
+          (edit)="editItem(i)"
+          (delete)="deleteItem(i)">
+        </app-item>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<div id="modal-add-edit" class="modal">
+
+  <div *ngIf="itemMarkedForEdit" class="modal-content">
+    <div class="row">
+      <div class="col-2">
+        <p *ngIf="isAddModal">Add</p>
+        <p *ngIf="!isAddModal">
+          <ng-container *ngIf="viewMode; else edit">View</ng-container>
+          <ng-template>Edit</ng-template>
+        </p>
+      </div>
+      <div class="col-10">
+        <span class="close-modal" (click)="closeModal('modal-add-edit')">&times;</span>
+      </div>
+    </div>
+    <form [formGroup]="bookForm">
+
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input [readOnly]="viewMode" id="author" type="text" class="form-control" formControlName="author" required>
+      </div>
+
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea [readOnly]="viewMode" id="content" rows="4" class="form-control" formControlName="content" required></textarea>
+      </div>
+
+      <button *ngIf="!viewMode" type="submit" class="btn btn-success" [disabled]="!bookForm.valid" (click)="submitForm()">Submit</button>
+
+    </form>
+  </div>
+</div>

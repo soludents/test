@@ -1,0 +1,9 @@
+<h4 class="card-title">
+  <span class="title">{{item?.author}}</span>
+</h4>
+<p class="card-text">{{item?.content}}</p>
+<div class="title-action">
+  <img (click)="view.emit()" src="../../assets/images/eye.svg"/>
+  <img (click)="delete.emit()" src="../../assets/images/delete.svg"/>
+  <img (click)="edit.emit()" src="../../assets/images/edit.svg"/>
+</div>
